@@ -76,3 +76,6 @@ section {
     padding: 5px; }
     section i:hover {
       cursor: pointer; }
+
+.checked {
+  color: #40E0D0; }
