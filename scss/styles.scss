@@ -1,0 +1,86 @@
+@import "variables";
+@import "mixin";
+
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+  box-sizing: border-box;
+}
+
+body{
+  min-height: 100vh;
+  background-color: $snow;
+}
+
+.container{
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+header{
+  text-align: center;
+  margin-bottom: 50px;
+  h1{
+    color: $pink-one;
+    padding: 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  input{
+    @include inputStyle;
+    background-color: rgba(188,143,143,0.2);
+    border-bottom: 2px solid rgba(188,143,143,0.7);
+  }
+  span{
+    padding: 5px 15px;
+  }
+}
+
+section{
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 500px;
+  min-height: 250px;
+  background-color: $pink-one;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  color: $snow;
+  position: relative;
+  .trash{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  h2{
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+  }
+  form{
+    text-align: center
+  }
+  input{
+    @include inputStyle;
+    background-color: rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.8);
+  }
+  ul{
+    margin: 10px 0;;
+  }
+  li{
+    list-style-type: none;
+    padding: 5px 10px;
+    border-bottom: 2px dotted rgba(255,255,255,0.1);
+  }
+  span{
+    text-transform: capitalize;
+  }
+  i{
+    float: right;
+    padding: 5px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
