@@ -1,8 +1,6 @@
 const addList = document.querySelector('.add-list');
 const containerList = document.querySelector('.container-list');
 
-
-
 // fonction called to display database infos considered as "added documents"
 const showCategory = (category, id) => {
   let items_list = "";
@@ -13,7 +11,8 @@ const showCategory = (category, id) => {
     items_list += item_html
   });
   const list_html = `
-    <section class="list" data-id="${id}">
+    <section class="list" data-id="${id}" style="background-color:${category.color};">
+      <i class="fas fa-paint-brush brush-modal"></i>
       <i class="far fa-trash-alt trash"></i>
       <h2>${category.title}</h2>
       <form class="add-item">
@@ -45,6 +44,7 @@ const itemAdded = (item, ulModif) => {
   ulModif.innerHTML += item_html;
 };
 
+// fonction called to removed from ul HTML the added item
 const itemDeleted = (liDeleted) => {
   liDeleted.parentNode.removeChild(liDeleted);
 };
@@ -58,6 +58,7 @@ addList.addEventListener('submit', e => {
   if (newList){
     const categorydoc = {
       title: newList,
+      color: "#bc8f8f",
       items: []
     };
     db.collection('category').add(categorydoc).then(() => {
@@ -89,8 +90,11 @@ containerList.addEventListener('submit', e => {
   e.target.reset();
 });
 
+let colorCounter = 0;
+
 // event listner for icon fonctionality // when deleting item form the "items array (field) or deleting document from database
 containerList.addEventListener('click', e => {
+
   if(e.target.className === 'fas fa-times'){
     // Atomically remove an item from the "items" array field in database.
     const item = e.target.parentNode.firstChild.innerHTML;
@@ -100,36 +104,62 @@ containerList.addEventListener('click', e => {
       items: firebase.firestore.FieldValue.arrayRemove(item)
     });
     itemDeleted(e.target.parentNode);
-  } else if(e.target.classList.contains("fa-check")){
-    // change check icon color
-    const item = e.target;
-    item.classList.toggle("checked");
   } else if(e.target.className === 'far fa-trash-alt trash'){
     // Atomically remove a document from collection in database.
     const id = e.target.parentElement.getAttribute('data-id');
     db.collection("category").doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
   }).catch(err => {
-      console.error("Error removing document: ", error);
+      console.log("Error removing document: ", err);
   });
-  }
+  } else if(e.target.classList.contains("fa-check")){
+    // change check icon color
+    const item = e.target;
+    item.classList.toggle("checked");
+  } else if(e.target.classList.contains("brush-modal")){
+    // change category background color
+    const colorList = ["#00b894", "#00cec9", "#0984e3", "#fdcb6e", "#e17055", "#d63031", "#636e72", "#bc8f8f"];
+    const catSelected = e.target.parentElement;
+    const id = e.target.parentElement.getAttribute('data-id');
+    console.log(e.target.parentElement);
+    console.log(id);
+    if(colorCounter === colorList.length){
+      colorCounter = 0;
+      // modif data-base
+      db.collection("category").doc(id).update({
+        "color": colorList[colorCounter]
+      }).then(function() {
+        console.log("Document successfully updated!");
+      }).catch(err => {
+        console.log("Error modifying color: ", err);
+      });
+      // modif affichage
+      catSelected.style.backgroundColor = colorList[colorCounter];
+      colorCounter += 1;
+    } else{
+      // modif data-base
+      db.collection("category").doc(id).update({
+        "color": colorList[colorCounter]
+      }).then(function() {
+        console.log("Document successfully updated!");
+      }).catch(err => {
+        console.log("Error modifying color: ", err);
+      });
+      // modif affichage
+      catSelected.style.backgroundColor = colorList[colorCounter];
+      colorCounter += 1;
+    }
+  } 
 });
-
 
 
 // real-time listener to get data
 db.collection('category').onSnapshot(snapshot => {
   snapshot.docChanges().forEach(change => {
     const doc = change.doc;
-    // console.log(1, change);
-    // console.log(2, doc);
-    // console.log(2, doc.data());
-  
     if(change.type === 'added'){
-      console.log('new change added', change, change.doc.data());
       showCategory(doc.data(), doc.id);
     } else if (change.type === 'removed'){
-      console.log('change removed', change, change.doc.data());
       deleteCategory(doc.id);
     }
   });
