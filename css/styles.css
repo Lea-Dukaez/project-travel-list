@@ -10,11 +10,8 @@ body {
   min-height: 100vh;
   background-color: #fffafa; }
 
-.container {
-  max-width: 800px;
-  margin: 40px auto; }
-
 header {
+  background: white;
   text-align: center;
   margin-bottom: 50px; }
   header h1 {
@@ -22,28 +19,43 @@ header {
     padding: 20px 0;
     text-transform: uppercase;
     letter-spacing: 0.2em; }
-  header input {
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center; }
+  .container h2 {
+    text-transform: uppercase;
+    padding: 20px 0; }
+
+.list-form, .destination-form {
+  margin-bottom: 40px; }
+  .list-form input, .destination-form input {
     padding: 8px;
     border: none;
     border-radius: 15px;
     color: #708090;
     background-color: rgba(188, 143, 143, 0.2);
     border-bottom: 2px solid rgba(188, 143, 143, 0.7); }
-    header input:focus {
+    .list-form input:focus, .destination-form input:focus {
       outline: none; }
-  header span {
+  .list-form span, .destination-form span {
     padding: 5px 15px; }
 
 section {
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 20px;
-  max-width: 500px;
+  max-width: 400px;
   min-height: 250px;
   background-color: #bc8f8f;
   -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   color: #fffafa;
   position: relative; }
+  section .brush-modal {
+    position: absolute;
+    top: 10px;
+    right: 40px; }
   section .trash {
     position: absolute;
     top: 10px;
@@ -79,3 +91,12 @@ section {
 
 .checked {
   color: #40E0D0; }
+
+.travel {
+  background: white;
+  margin: auto;
+  max-width: 50%;
+  padding: 50px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: center; }

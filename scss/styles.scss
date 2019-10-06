@@ -14,12 +14,8 @@ body{
   background-color: $snow;
 }
 
-.container{
-  max-width: 800px;
-  margin: 40px auto;
-}
-
 header{
+  background:white;
   text-align: center;
   margin-bottom: 50px;
   h1{
@@ -28,6 +24,20 @@ header{
     text-transform: uppercase;
     letter-spacing: 0.2em;
   }
+}
+
+.container{
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  h2{
+    text-transform: uppercase;
+    padding: 20px 0;
+  }
+}
+
+.list-form, .destination-form{
+  margin-bottom: 40px;
   input{
     @include inputStyle;
     background-color: rgba(188,143,143,0.2);
@@ -39,14 +49,19 @@ header{
 }
 
 section{
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 20px;
-  max-width: 500px;
+  max-width: 400px;
   min-height: 250px;
   background-color: $pink-one;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
   color: $snow;
   position: relative;
+  .brush-modal{
+    position: absolute;
+    top: 10px;
+    right: 40px;
+  }
   .trash{
     position: absolute;
     top: 10px;
@@ -87,4 +102,14 @@ section{
 
 .checked{
   color : #40E0D0;
+}
+
+// home page - destination choice
+.travel{
+  background: white;
+  margin: auto;
+  max-width: 50%;
+  padding: 50px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
